@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="myApp">
 <head>
 	<title>Search App</title>
 	<script src="lib/angular/angular.min.js"></script>
+	<script src="js/controllers.js"></script>
 </head>
-<body>
-	<input type="text" ng-model="name">
-	<p>{{name}}</p>
+<body style="text-align:center;padding-top:150px;">
+	<div>
+		<input type="text" placeholder="Search by topic" ng-model="searchQuery">
+		<input type="submit" value="Search">
+	</div>
+	<div ng-controller="MyController">
+		<p>{{searchQuery}}</p>
+	</div>
 </body>
 </html>
