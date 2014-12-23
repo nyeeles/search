@@ -6,12 +6,14 @@ angular.module('myApp',[])
 		// });
 
 		$scope.channel = {
-			'name': 'smosh',
+			'name': '',
 			'url_start': 'http://gdata.youtube.com/feeds/api/users/',
 			'url_end':'?alt=json',
 			'api': ''
 		};
 
-		$scope.channel["api"] = $scope.channel.url_start + $scope.channel.name + $scope.channel.url_end;
+		$('.search-btn').click(function(){
+			$scope.channel["api"] = $scope.channel.url_start + $scope.channel.name + $scope.channel.url_end;
+		});
 
 	});

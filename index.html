@@ -3,12 +3,13 @@
 <head>
 	<title>Search App</title>
 	<script src="lib/angular/angular.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src="js/controllers.js"></script>
 </head>
 <body style="text-align:center;padding-top:150px;"  ng-controller="MyController">
 	<div>
 		<input type="text" placeholder="Search by topic" autofocus ng-model="channel.name">
-		<input type="submit" value="Search">
+		<input type="submit" value="Search" class="search-btn">
 	</div>
 	<div>
 		<!-- <p><a href="{{channel.entry.link.0.href}}" target="_blank">{{text}}</a></p> -->
@@ -17,8 +18,5 @@
 		<p>{{channel.api}}</p>
 	</div>
 
-	<script>
-
-	</script>
 </body>
 </html>
