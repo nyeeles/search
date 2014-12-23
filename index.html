@@ -8,14 +8,11 @@
 </head>
 <body style="text-align:center;padding-top:150px;"  ng-controller="MyController">
 	<div>
-		<input type="text" placeholder="Search by topic" autofocus ng-model="channel.name">
+		<input type="text" placeholder="Search by topic" autofocus ng-model="url.name">
 		<input type="submit" value="Search" class="search-btn">
 	</div>
 	<div>
-		<!-- <p><a href="{{channel.entry.link.0.href}}" target="_blank">{{text}}</a></p> -->
-		<p>{{channel.name}}</p>
-		<p>{{channel.url}}</p>
-		<p>{{channel.api}}</p>
+		<p><a href="{{channel.entry.link.0.href}}" target="_blank">{{channel.entry.yt$statistics.subscriberCount}}</a></p>
 	</div>
 
 </body>

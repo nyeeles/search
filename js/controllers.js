@@ -1,11 +1,7 @@
 angular.module('myApp',[])
 	.controller('MyController', function($scope, $http) {
 
-		// $http.get('http://gdata.youtube.com/feeds/api/users/smosh?alt=json').success(function(data){
-		// 	$scope.channel = data;
-		// });
-
-		$scope.channel = {
+		$scope.url = {
 			'name': '',
 			'url_start': 'http://gdata.youtube.com/feeds/api/users/',
 			'url_end':'?alt=json',
@@ -13,7 +9,11 @@ angular.module('myApp',[])
 		};
 
 		$('.search-btn').click(function(){
-			$scope.channel["api"] = $scope.channel.url_start + $scope.channel.name + $scope.channel.url_end;
+			$scope.url["api"] = $scope.url.url_start + $scope.url.name + $scope.url.url_end;
+			
+			$http.get($scope.url.api).success(function(data){
+			$scope.channel = data;
+		});
 		});
 
 	});
