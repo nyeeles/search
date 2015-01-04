@@ -18,7 +18,8 @@ function getResults(){
 	var searchQry = document.getElementById('search-qry').value;
 
 	var xmlhttp = new XMLHttpRequest();
-	var url = "http://gdata.youtube.com/feeds/api/users/" + searchQry + "/uploads?alt=json&max-results=10";
+
+	var url = "https://www.googleapis.com/youtube/v3/search?part=id&q=" + searchQry + "&type=channel&key=AIzaSyAMSSn3676V6m7-hX5nAI3Lff7sZKyJH0A";
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -32,9 +33,9 @@ function getResults(){
 	function myFunction(arr) {
 	    var out = "";
 	    var i;
-	    for(i = 0; i < arr.feed.entry.length; i++) {
-	        out += '<a target="_blank" href="' + arr.feed.entry[i].link[0].href + '">' +
-	        arr.feed.entry[i].title.$t + '</a><br><br>';
+	    for(i = 0; i < arr.items.length; i++) {
+	        out += '<a target="_blank" href="https://www.youtube.com/channel/' + arr.items[i].id.channelId + '">' +
+	        arr.items[i].id.channelId + '</a><br><br>';
 	    }
 	    document.getElementById("results").innerHTML = out;
 	}
