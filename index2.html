@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body style="text-align:center; padding-top:100px;">
+	<form>
+		<input type="text" id="search-qry" name="search-qry" placeholder="Search by topic or keyword" style="width:180px;">
+		<input type="button" value="Search" onClick="getResults();">
+	</form>
+
+	<div id="results" style="margin-top:40px;"></div>
+
+
+<script type="text/javascript">
+	
+function getResults(){
+	var searchQry = document.getElementById('search-qry').value;
+
+	var xmlhttp = new XMLHttpRequest();
+	var url = "http://gdata.youtube.com/feeds/api/users/" + searchQry + "/uploads?alt=json&max-results=10";
+
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	        var myArr = JSON.parse(xmlhttp.responseText);
+	        myFunction(myArr);
+	    }
+	}
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+
+	function myFunction(arr) {
+	    var out = "";
+	    var i;
+	    for(i = 0; i < arr.feed.entry.length; i++) {
+	        out += '<a target="_blank" href="' + arr.feed.entry[i].link[0].href + '">' +
+	        arr.feed.entry[i].title.$t + '</a><br><br>';
+	    }
+	    document.getElementById("results").innerHTML = out;
+	}
+}
+
+</script>
+</body>
+</html>
