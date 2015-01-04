@@ -20,7 +20,7 @@ function getResults(){
 
 	var xmlhttp = new XMLHttpRequest();
 
-	var url = "https://www.googleapis.com/youtube/v3/search?part=id&q=" + searchQry + "&type=channel&key=AIzaSyAMSSn3676V6m7-hX5nAI3Lff7sZKyJH0A";
+	var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + searchQry + "&type=channel&key=AIzaSyAMSSn3676V6m7-hX5nAI3Lff7sZKyJH0A";
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -39,7 +39,8 @@ function getResults(){
 			var channel = {
 				id : arr.items[i].id.channelId,
 				gdata : "gdata.youtube.com/feeds/api/users/" + arr.items[i].id.channelId + "/uploads?alt=json&max-results=10",
-				link : href="https://www.youtube.com/channel/" + arr.items[i].id.channelId
+				link : "https://www.youtube.com/channel/" + arr.items[i].id.channelId,
+				title : arr.items[i].snippet.thumbnails.default.url
 			};
 			channels.push(channel);
 		}
@@ -50,8 +51,8 @@ function getResults(){
 	    var out = "";
 	    var i;
 	    for(i = 0; i < arr.length; i++) {
-	        out += '<a target="_blank" href="' + arr[i].link + '">' +
-	        arr[i].id + '</a><br><br>';
+	        out += '<a target="_blank" style="text-decoration:none" href="' + arr[i].link + '"> <img src="' +
+	        arr[i].title + '" heigh="150" width="150" style=padding:10px;></a>';
 	    }
 	    document.getElementById("results").innerHTML = out;
 	}
