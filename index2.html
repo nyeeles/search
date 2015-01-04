@@ -4,11 +4,10 @@
 	<title></title>
 </head>
 <body style="text-align:center; padding-top:100px;">
-	<form>
-		<input type="text" id="search-qry" name="search-qry" placeholder="Search by topic or keyword" style="width:180px;">
-		<input type="button" id="btnSearch" value="Search" onClick="getResults();">
-		<!-- <input type="button" value="test" onClick="addStatsFor(channels);"> -->
-	</form>
+	
+	<input type="text" id="search-qry" name="search-qry" placeholder="Search by topic or keyword" style="width:180px;" onkeydown="Javascript: if (event.keyCode==13) getResults();">
+	<input type="button" id="btnSearch" value="Search" onClick="getResults();">
+	<!-- <input type="button" value="test" onClick="addStatsFor(channels);"> -->
 
 	<div id="results" style="margin-top:40px;"></div>
 
