@@ -7,6 +7,7 @@
 	<form>
 		<input type="text" id="search-qry" name="search-qry" placeholder="Search by topic or keyword" style="width:180px;">
 		<input type="button" id="btnSearch" value="Search" onClick="getResults();">
+		<!-- <input type="button" value="test" onClick="addStatsFor(channels);"> -->
 	</form>
 
 	<div id="results" style="margin-top:40px;"></div>
@@ -20,7 +21,7 @@ function getResults(){
 
 	var xmlhttp = new XMLHttpRequest();
 
-	var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + searchQry + "&type=channel&key=AIzaSyAMSSn3676V6m7-hX5nAI3Lff7sZKyJH0A";
+	var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + searchQry + "&type=channel&maxResults=50&key=AIzaSyAMSSn3676V6m7-hX5nAI3Lff7sZKyJH0A";
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -34,22 +35,23 @@ function getResults(){
 
 
 	function gatherChannels(arr) {
-		var i;
+		// var i;
 		for(i = 0; i < arr.items.length; i++) {
 			var channel = {
 				id : arr.items[i].id.channelId,
-				gdata : "gdata.youtube.com/feeds/api/users/" + arr.items[i].id.channelId + "/uploads?alt=json&max-results=10",
+				gdata : "http://gdata.youtube.com/feeds/api/users/" + arr.items[i].id.channelId + "?alt=json",
 				link : "https://www.youtube.com/channel/" + arr.items[i].id.channelId,
-				title : arr.items[i].snippet.thumbnails.default.url
-			};
+				title : arr.items[i].snippet.thumbnails.default.url,
+				subscribers : 0
+			}
+			
 			channels.push(channel);
 		}
 	}
-	var channels = channels || [];
 
 	function displayChannels(arr) {
 	    var out = "";
-	    var i;
+	    // var i;
 	    for(i = 0; i < arr.length; i++) {
 	        out += '<a target="_blank" style="text-decoration:none" href="' + arr[i].link + '"> <img src="' +
 	        arr[i].title + '" heigh="150" width="150" style=padding:10px;></a>';
@@ -57,6 +59,33 @@ function getResults(){
 	    document.getElementById("results").innerHTML = out;
 	}
 }
+
+var channels = channels || [];
+
+// function addStatsFor(channels){
+
+// 	for(i=0;i<channels.length;i++) {
+// 		var json = json || [];
+// 		var xmlhttp = new XMLHttpRequest();
+// 		var url = channels[i].gdata;
+// 		xmlhttp.onreadystatechange = function() {
+// 		    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+// 		        json.push(JSON.parse(xmlhttp.responseText));
+// 		        // console.log(gdata.entry.yt$statistics.subscriberCount)
+// 		        // channels[i].subscribers = gdata.entry.yt$statistics.subscriberCount;
+// 		    }
+// 		}
+// 		xmlhttp.open("GET", url, true);
+// 		xmlhttp.send();
+		
+// 	}
+
+
+// 	// setTimeout(function() {
+// 		// console.log(channels[i])
+// 		// channels[0].subscribers = json[0].entry.yt$statistics.subscriberCount;
+// 	// }, 500);
+// }
 
 </script>
 </body>
