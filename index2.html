@@ -6,7 +6,7 @@
 <body style="text-align:center; padding-top:100px;">
 	<form>
 		<input type="text" id="search-qry" name="search-qry" placeholder="Search by topic or keyword" style="width:180px;">
-		<input type="button" value="Search" onClick="getResults();">
+		<input type="button" id="btnSearch" value="Search" onClick="getResults();">
 	</form>
 
 	<div id="results" style="margin-top:40px;"></div>
@@ -15,6 +15,7 @@
 <script type="text/javascript">
 	
 function getResults(){
+
 	var searchQry = document.getElementById('search-qry').value;
 
 	var xmlhttp = new XMLHttpRequest();
@@ -24,18 +25,33 @@ function getResults(){
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        var myArr = JSON.parse(xmlhttp.responseText);
-	        myFunction(myArr);
+	        gatherChannels(myArr);
+	        displayChannels(channels);
 	    }
 	}
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
 
-	function myFunction(arr) {
+
+	function gatherChannels(arr) {
+		var i;
+		for(i = 0; i < arr.items.length; i++) {
+			var channel = {
+				id : arr.items[i].id.channelId,
+				gdata : "gdata.youtube.com/feeds/api/users/" + arr.items[i].id.channelId + "/uploads?alt=json&max-results=10",
+				link : href="https://www.youtube.com/channel/" + arr.items[i].id.channelId
+			};
+			channels.push(channel);
+		}
+	}
+	var channels = channels || [];
+
+	function displayChannels(arr) {
 	    var out = "";
 	    var i;
-	    for(i = 0; i < arr.items.length; i++) {
-	        out += '<a target="_blank" href="https://www.youtube.com/channel/' + arr.items[i].id.channelId + '">' +
-	        arr.items[i].id.channelId + '</a><br><br>';
+	    for(i = 0; i < arr.length; i++) {
+	        out += '<a target="_blank" href="' + arr[i].link + '">' +
+	        arr[i].id + '</a><br><br>';
 	    }
 	    document.getElementById("results").innerHTML = out;
 	}
